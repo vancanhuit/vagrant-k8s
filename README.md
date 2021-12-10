@@ -25,7 +25,7 @@ Finally, install [Calico](https://projectcalico.docs.tigera.io/getting-started/k
 ## Joining worker nodes
 ```sh
 $ vagrant ssh worker-1
-$ sudo kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+$ sudo kubeadm join 192.168.56.10:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 Append `--node-ip=192.168.56.11` to `KUBELET_KUBEADM_ARGS` variable in `/var/lib/kubelet/kubeadm-flags.env` file and then restart `kubelet` service like we did on master node.
