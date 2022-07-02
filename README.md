@@ -2,7 +2,7 @@
 
 You need to install [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on your machine. Make sure your machine has enough RAM to run multiple VMs.
 
-This quick guide is applicable from Kubernetes `1.24+` version onward. See [https://kubernetes.io/blog/2022/02/17/dockershim-faq/](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) for more details about breaking changes from Kubenetes `1.24+`.
+This quick guide is applicable from Kubernetes `1.24+` version onward. See [https://kubernetes.io/blog/2022/02/17/dockershim-faq/](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) for more details about breaking changes from Kubernetes `1.24+`.
 
 ## Provisioning VMs
 ```sh
@@ -13,7 +13,7 @@ $ vagrant reload
 ```
 
 ## Iniitializing master node
-After all VMs are provisioned, we have Docker, `kubeadm`, `kubelet` and `kubectl` installed on those VMs. We are ready to follow this [guide](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) to setup our cluster:
+After all VMs are provisioned, follow this [guide](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) to setup our cluster:
 
 ```sh
 $ vagrant ssh master
