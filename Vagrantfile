@@ -27,6 +27,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "install-essential-tools.sh", privileged: false
   config.vm.provision "shell", path: "allow-bridge-nf-traffic.sh", privileged: false
-  config.vm.provision "shell", path: "install-docker.sh", privileged: false
+  config.vm.provision "shell", path: "install-containerd.sh", privileged: false
   config.vm.provision "shell", path: "install-kubeadm.sh", privileged: false
 end
