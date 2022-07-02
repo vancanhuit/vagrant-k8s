@@ -45,7 +45,7 @@ $ kubectl get node -o wide
 ```
 
 ```
-NNAME       STATUS   ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION    CONTAINER-RUNTIME
+NNAME      STATUS   ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION    CONTAINER-RUNTIME
 master     Ready    control-plane   11m     v1.24.2   192.168.56.10   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-13-amd64   containerd://1.6.6
 worker-1   Ready    <none>          3m19s   v1.24.2   192.168.56.11   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-13-amd64   containerd://1.6.6
 worker-2   Ready    <none>          2m58s   v1.24.2   192.168.56.12   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-13-amd64   containerd://1.6.6
