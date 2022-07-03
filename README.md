@@ -12,7 +12,7 @@ $ vagrant up
 $ vagrant reload
 ```
 
-## Iniitializing master node
+## Initializing master node
 After all VMs are provisioned, follow this [guide](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) to setup our cluster:
 
 ```sh
