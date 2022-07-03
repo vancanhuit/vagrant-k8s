@@ -22,7 +22,7 @@ $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (you may choose other Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
+Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (you may choose another Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
 
 ```sh
 $ kubectl create -f /vagrant/tigera-operator.yaml
@@ -38,7 +38,8 @@ The join command can be found after running the `kubeadm init` above but we can 
 
 ```sh
 $ kubeadm token list
-$ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+$ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | \
+   openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
