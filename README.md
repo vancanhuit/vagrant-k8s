@@ -1,6 +1,6 @@
 # Creating a multi-node Kubernetes cluster on local machine
 
-You need to install [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on your machine. Make sure your machine has enough RAM to run multiple VMs.
+We need to install [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on our machine. Make sure that our machine has enough RAM to run multiple VMs.
 
 This quick guide is applicable from Kubernetes `1.24+` version onward. See [https://kubernetes.io/blog/2022/02/17/dockershim-faq/](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) for more details about breaking changes from Kubernetes `1.24+`.
 
@@ -22,7 +22,7 @@ $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (you may choose another Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
+Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (we may choose another Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
 
 ```sh
 $ kubectl create -f /vagrant/tigera-operator.yaml
