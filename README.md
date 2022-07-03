@@ -4,7 +4,7 @@ You need to install [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http
 
 This quick guide is applicable from Kubernetes `1.24+` version onward. See [https://kubernetes.io/blog/2022/02/17/dockershim-faq/](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) for more details about breaking changes from Kubernetes `1.24+`.
 
-## Provisioning VMs
+## Provisioning VMs with all necessary tools
 ```sh
 $ git clone https://github.com/vancanhuit/vagrant-k8s.git
 $ cd vagrant-k8s
@@ -34,7 +34,7 @@ $ kubectl create -f /vagrant/custom-resources.yaml
 $ vagrant ssh worker-1
 $ sudo kubeadm join 192.168.56.10:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-The join command can be found after running the `kubeadm init` above but we can find token and hash by running the following commands on the master node:
+The join command can be found after running the `kubeadm init` above but we can find token and hash values by running the following commands on the master node:
 
 ```sh
 $ kubeadm token list
@@ -49,9 +49,6 @@ Now we should have a 3-node Kubernetes cluster running on our local machine:
 ```sh
 $ vagrant ssh master
 $ kubectl get node -o wide
-```
-
-```sh
 NAME       STATUS   ROLES           AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION    CONTAINER-RUNTIME
 master     Ready    control-plane   4m2s   v1.24.2   192.168.56.10   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-15-amd64   containerd://1.6.6
 worker-1   Ready    <none>          110s   v1.24.2   192.168.56.11   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-15-amd64   containerd://1.6.6
@@ -59,10 +56,15 @@ worker-2   Ready    <none>          105s   v1.24.2   192.168.56.12   <none>     
 ```
 
 ```sh
-$ kubectl get all --all-namespaces
+$ kubectl cluster-info
+Kubernetes control plane is running at https://192.168.56.10:6443
+CoreDNS is running at https://192.168.56.10:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
 ```sh
+$ kubectl get all --all-namespaces
 NAMESPACE          NAME                                           READY   STATUS    RESTARTS       AGE
 calico-apiserver   pod/calico-apiserver-6dd6868785-5fjl4          1/1     Running   0              2m25s
 calico-apiserver   pod/calico-apiserver-6dd6868785-bx42r          1/1     Running   2 (119s ago)   2m25s
