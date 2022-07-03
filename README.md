@@ -34,7 +34,7 @@ $ kubectl create -f /vagrant/custom-resources.yaml
 $ vagrant ssh worker-1
 $ sudo kubeadm join 192.168.56.10:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-The join command can be found after running the `kubeadm init` above but we can find token and hash values by running the following commands on the master node:
+The join command can be found after running the `kubeadm init` command above but we can find token and hash values by running the following commands on the master node:
 
 ```sh
 $ kubeadm token list
