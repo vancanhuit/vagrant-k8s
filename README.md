@@ -22,7 +22,7 @@ $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-Finally, install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (you may choose other Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
+Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (you may choose other Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our master node:
 
 ```sh
 $ kubectl create -f /vagrant/tigera-operator.yaml
