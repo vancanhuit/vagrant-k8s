@@ -3,7 +3,6 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/bullseye64"
-  config.vm.base_mac = nil
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 2048
