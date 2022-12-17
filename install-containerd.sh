@@ -17,8 +17,8 @@ sudo install -o root -g root -m 755 runc.amd64 /usr/local/sbin/runc
 
 rm -fv runc.amd64
 
-CNI_PLUGINS_VESRSION="1.1.1"
-curl -LfsS https://github.com/containernetworking/plugins/releases/download/v${CNI_PLUGINS_VESRSION}/cni-plugins-linux-amd64-v${CNI_PLUGINS_VESRSION}.tgz -o cni-plugins.tgz
+CNI_PLUGINS_VERSION="1.1.1"
+curl -LfsS https://github.com/containernetworking/plugins/releases/download/v${CNI_PLUGINS_VERSION}/cni-plugins-linux-amd64-v${CNI_PLUGINS_VERSION}.tgz -o cni-plugins.tgz
 sudo mkdir -p /opt/cni/bin
 sudo tar Cxzvf /opt/cni/bin cni-plugins.tgz
 
