@@ -50,10 +50,10 @@ Now we should have a 3-node Kubernetes cluster running on our local machine:
 ```sh
 $ vagrant ssh master
 $ kubectl get node -o wide
-NAME       STATUS   ROLES           AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION    CONTAINER-RUNTIME
-master     Ready    control-plane   10m    v1.26.0   192.168.56.10   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-19-amd64   containerd://1.6.13
-worker-1   Ready    <none>          2m1s   v1.26.0   192.168.56.11   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-19-amd64   containerd://1.6.13
-worker-2   Ready    <none>          102s   v1.26.0   192.168.56.12   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-19-amd64   containerd://1.6.13
+NAME       STATUS   ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION   CONTAINER-RUNTIME
+master     Ready    control-plane   4m25s   v1.28.0   192.168.56.10   <none>        Debian GNU/Linux 12 (bookworm)   6.1.0-11-amd64   containerd://1.7.3
+worker-1   Ready    <none>          2m6s    v1.28.0   192.168.56.11   <none>        Debian GNU/Linux 12 (bookworm)   6.1.0-11-amd64   containerd://1.7.3
+worker-2   Ready    <none>          112s    v1.28.0   192.168.56.12   <none>        Debian GNU/Linux 12 (bookworm)   6.1.0-11-amd64   containerd://1.7.3
 ```
 
 ```sh
@@ -67,48 +67,51 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```sh
 $ kubectl get all --all-namespaces
 NAMESPACE          NAME                                           READY   STATUS    RESTARTS   AGE
-calico-apiserver   pod/calico-apiserver-79667464f-ndp9z           1/1     Running   0          5m40s
-calico-apiserver   pod/calico-apiserver-79667464f-r55v7           1/1     Running   0          5m40s
-calico-system      pod/calico-kube-controllers-67df98bdc8-cqfg6   1/1     Running   0          6m53s
-calico-system      pod/calico-node-2rb98                          1/1     Running   0          2m53s
-calico-system      pod/calico-node-dwrjj                          1/1     Running   0          3m12s
-calico-system      pod/calico-node-nljnp                          1/1     Running   0          6m53s
-calico-system      pod/calico-typha-555f9ccbb9-5pv9h              1/1     Running   0          2m46s
-calico-system      pod/calico-typha-555f9ccbb9-zbcn8              1/1     Running   0          6m53s
-kube-system        pod/coredns-787d4945fb-6n8jc                   1/1     Running   0          11m
-kube-system        pod/coredns-787d4945fb-dv7bb                   1/1     Running   0          11m
-kube-system        pod/etcd-master                                1/1     Running   0          12m
-kube-system        pod/kube-apiserver-master                      1/1     Running   0          12m
-kube-system        pod/kube-controller-manager-master             1/1     Running   0          12m
-kube-system        pod/kube-proxy-gqn24                           1/1     Running   0          2m53s
-kube-system        pod/kube-proxy-l97l2                           1/1     Running   0          11m
-kube-system        pod/kube-proxy-ss45p                           1/1     Running   0          3m12s
-kube-system        pod/kube-scheduler-master                      1/1     Running   0          12m
-tigera-operator    pod/tigera-operator-7795f5d79b-nbmsl           1/1     Running   0          8m38s
+calico-apiserver   pod/calico-apiserver-7f6fbdb8bf-n698c          1/1     Running   0          2m55s
+calico-apiserver   pod/calico-apiserver-7f6fbdb8bf-zh6pn          1/1     Running   0          2m55s
+calico-system      pod/calico-kube-controllers-58659d6465-2bt55   1/1     Running   0          3m20s
+calico-system      pod/calico-node-59ltv                          1/1     Running   0          2m42s
+calico-system      pod/calico-node-d86qm                          1/1     Running   0          2m28s
+calico-system      pod/calico-node-ww9jx                          1/1     Running   0          3m20s
+calico-system      pod/calico-typha-786b5694db-g64rl              1/1     Running   0          2m25s
+calico-system      pod/calico-typha-786b5694db-lvspv              1/1     Running   0          3m20s
+calico-system      pod/csi-node-driver-gstcv                      2/2     Running   0          2m42s
+calico-system      pod/csi-node-driver-k4v7f                      2/2     Running   0          3m20s
+calico-system      pod/csi-node-driver-sgn6s                      2/2     Running   0          2m28s
+kube-system        pod/coredns-5dd5756b68-mbk6f                   1/1     Running   0          4m44s
+kube-system        pod/coredns-5dd5756b68-xkpw7                   1/1     Running   0          4m44s
+kube-system        pod/etcd-master                                1/1     Running   2          4m59s
+kube-system        pod/kube-apiserver-master                      1/1     Running   2          4m57s
+kube-system        pod/kube-controller-manager-master             1/1     Running   2          4m57s
+kube-system        pod/kube-proxy-dhgm4                           1/1     Running   0          2m42s
+kube-system        pod/kube-proxy-pxd7f                           1/1     Running   0          2m28s
+kube-system        pod/kube-proxy-qwzpk                           1/1     Running   0          4m45s
+kube-system        pod/kube-scheduler-master                      1/1     Running   2          4m57s
+tigera-operator    pod/tigera-operator-94d7f7696-jcmmd            1/1     Running   0          3m58s
 
 NAMESPACE          NAME                                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
-calico-apiserver   service/calico-api                        ClusterIP   10.104.28.126    <none>        443/TCP                  5m40s
-calico-system      service/calico-kube-controllers-metrics   ClusterIP   10.102.54.177    <none>        9094/TCP                 5m43s
-calico-system      service/calico-typha                      ClusterIP   10.105.125.137   <none>        5473/TCP                 6m53s
-default            service/kubernetes                        ClusterIP   10.96.0.1        <none>        443/TCP                  12m
-kube-system        service/kube-dns                          ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   12m
+calico-apiserver   service/calico-api                        ClusterIP   10.101.116.217   <none>        443/TCP                  2m55s
+calico-system      service/calico-kube-controllers-metrics   ClusterIP   None             <none>        9094/TCP                 3m3s
+calico-system      service/calico-typha                      ClusterIP   10.99.46.233     <none>        5473/TCP                 3m20s
+default            service/kubernetes                        ClusterIP   10.96.0.1        <none>        443/TCP                  4m59s
+kube-system        service/kube-dns                          ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   4m57s
 
 NAMESPACE       NAME                             DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
-calico-system   daemonset.apps/calico-node       3         3         3       3            3           kubernetes.io/os=linux   6m53s
-calico-system   daemonset.apps/csi-node-driver   0         0         0       0            0           kubernetes.io/os=linux   6m53s
-kube-system     daemonset.apps/kube-proxy        3         3         3       3            3           kubernetes.io/os=linux   12m
+calico-system   daemonset.apps/calico-node       3         3         3       3            3           kubernetes.io/os=linux   3m20s
+calico-system   daemonset.apps/csi-node-driver   3         3         3       3            3           kubernetes.io/os=linux   3m20s
+kube-system     daemonset.apps/kube-proxy        3         3         3       3            3           kubernetes.io/os=linux   4m57s
 
 NAMESPACE          NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-calico-apiserver   deployment.apps/calico-apiserver          2/2     2            2           5m40s
-calico-system      deployment.apps/calico-kube-controllers   1/1     1            1           6m53s
-calico-system      deployment.apps/calico-typha              2/2     2            2           6m53s
-kube-system        deployment.apps/coredns                   2/2     2            2           12m
-tigera-operator    deployment.apps/tigera-operator           1/1     1            1           8m38s
+calico-apiserver   deployment.apps/calico-apiserver          2/2     2            2           2m55s
+calico-system      deployment.apps/calico-kube-controllers   1/1     1            1           3m20s
+calico-system      deployment.apps/calico-typha              2/2     2            2           3m20s
+kube-system        deployment.apps/coredns                   2/2     2            2           4m57s
+tigera-operator    deployment.apps/tigera-operator           1/1     1            1           3m58s
 
 NAMESPACE          NAME                                                 DESIRED   CURRENT   READY   AGE
-calico-apiserver   replicaset.apps/calico-apiserver-79667464f           2         2         2       5m40s
-calico-system      replicaset.apps/calico-kube-controllers-67df98bdc8   1         1         1       6m53s
-calico-system      replicaset.apps/calico-typha-555f9ccbb9              2         2         2       6m53s
-kube-system        replicaset.apps/coredns-787d4945fb                   2         2         2       11m
-tigera-operator    replicaset.apps/tigera-operator-7795f5d79b           1         1         1       8m38s
+calico-apiserver   replicaset.apps/calico-apiserver-7f6fbdb8bf          2         2         2       2m55s
+calico-system      replicaset.apps/calico-kube-controllers-58659d6465   1         1         1       3m20s
+calico-system      replicaset.apps/calico-typha-786b5694db              2         2         2       3m20s
+kube-system        replicaset.apps/coredns-5dd5756b68                   2         2         2       4m45s
+tigera-operator    replicaset.apps/tigera-operator-94d7f7696            1         1         1       3m58s
 ```

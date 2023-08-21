@@ -43,22 +43,26 @@ version = 2
     startup_delay = "100ms"
 
   [plugins."io.containerd.grpc.v1.cri"]
+    cdi_spec_dirs = ["/etc/cdi", "/var/run/cdi"]
     device_ownership_from_security_context = false
     disable_apparmor = false
     disable_cgroup = false
     disable_hugetlb_controller = true
     disable_proc_mount = false
     disable_tcp_service = true
+    drain_exec_sync_io_timeout = "0s"
+    enable_cdi = false
     enable_selinux = false
     enable_tls_streaming = false
     enable_unprivileged_icmp = false
     enable_unprivileged_ports = false
     ignore_image_defined_volumes = false
+    image_pull_progress_timeout = "1m0s"
     max_concurrent_downloads = 3
     max_container_log_line_size = 16384
     netns_mounts_under_state_dir = false
     restrict_oom_score_adj = false
-    sandbox_image = "k8s.gcr.io/pause:3.6"
+    sandbox_image = "registry.k8s.io/pause:3.8"
     selinux_category_range = 1024
     stats_collect_period = 10
     stream_idle_timeout = "4h0m0s"
@@ -74,11 +78,13 @@ version = 2
       conf_template = ""
       ip_pref = ""
       max_conf_num = 1
+      setup_serially = false
 
     [plugins."io.containerd.grpc.v1.cri".containerd]
       default_runtime_name = "runc"
       disable_snapshot_annotations = true
       discard_unpacked_layers = false
+      ignore_blockio_not_enabled_errors = false
       ignore_rdt_not_enabled_errors = false
       no_pivot = false
       snapshotter = "overlayfs"
@@ -90,10 +96,13 @@ version = 2
         container_annotations = []
         pod_annotations = []
         privileged_without_host_devices = false
+        privileged_without_host_devices_all_devices_allowed = false
         runtime_engine = ""
         runtime_path = ""
         runtime_root = ""
         runtime_type = ""
+        sandbox_mode = ""
+        snapshotter = ""
 
         [plugins."io.containerd.grpc.v1.cri".containerd.default_runtime.options]
 
@@ -106,10 +115,13 @@ version = 2
           container_annotations = []
           pod_annotations = []
           privileged_without_host_devices = false
+          privileged_without_host_devices_all_devices_allowed = false
           runtime_engine = ""
           runtime_path = ""
           runtime_root = ""
           runtime_type = "io.containerd.runc.v2"
+          sandbox_mode = "podsandbox"
+          snapshotter = ""
 
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
             BinaryName = ""
@@ -131,10 +143,13 @@ version = 2
         container_annotations = []
         pod_annotations = []
         privileged_without_host_devices = false
+        privileged_without_host_devices_all_devices_allowed = false
         runtime_engine = ""
         runtime_path = ""
         runtime_root = ""
         runtime_type = ""
+        sandbox_mode = ""
+        snapshotter = ""
 
         [plugins."io.containerd.grpc.v1.cri".containerd.untrusted_workload_runtime.options]
 
@@ -172,6 +187,15 @@ version = 2
   [plugins."io.containerd.monitor.v1.cgroups"]
     no_prometheus = false
 
+  [plugins."io.containerd.nri.v1.nri"]
+    disable = true
+    disable_connections = false
+    plugin_config_path = "/etc/nri/conf.d"
+    plugin_path = "/opt/nri/plugins"
+    plugin_registration_timeout = "5s"
+    plugin_request_timeout = "2s"
+    socket_path = "/var/run/nri/nri.sock"
+
   [plugins."io.containerd.runtime.v1.linux"]
     no_shim = false
     runtime = "runc"
@@ -187,6 +211,7 @@ version = 2
     default = ["walking"]
 
   [plugins."io.containerd.service.v1.tasks-service"]
+    blockio_config_file = ""
     rdt_config_file = ""
 
   [plugins."io.containerd.snapshotter.v1.aufs"]
@@ -219,6 +244,16 @@ version = 2
     insecure = false
     protocol = ""
 
+  [plugins."io.containerd.transfer.v1.local"]
+    config_path = ""
+    max_concurrent_downloads = 3
+    max_concurrent_uploaded_layers = 3
+
+    [[plugins."io.containerd.transfer.v1.local".unpack_config]]
+      differ = ""
+      platform = "linux/amd64"
+      snapshotter = "overlayfs"
+
 [proxy_plugins]
 
 [stream_processors]
@@ -239,6 +274,7 @@ version = 2
 
 [timeouts]
   "io.containerd.timeout.bolt.open" = "0s"
+  "io.containerd.timeout.metrics.shimstats" = "2s"
   "io.containerd.timeout.shim.cleanup" = "5s"
   "io.containerd.timeout.shim.load" = "5s"
   "io.containerd.timeout.shim.shutdown" = "3s"
