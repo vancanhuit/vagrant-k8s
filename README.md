@@ -9,6 +9,11 @@ This quick guide is applicable from Kubernetes version `1.24+` onward. See [http
 $ git clone https://github.com/vancanhuit/vagrant-k8s.git
 $ cd vagrant-k8s
 $ vagrant up
+# IMPORTANT: Disable swap on each node before reloading.
+# Run `vagrant ssh <node>` where node is `master`, `worker-1` or `worker-2` to access each node.
+# We MUST disable swap in order for the kubelet to work properly:
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin.
+# Simply comment out the swap entry in `/etc/fstab` file.
 $ vagrant reload
 ```
 
