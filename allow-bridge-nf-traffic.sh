@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
