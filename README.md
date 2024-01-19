@@ -25,7 +25,7 @@ $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 Install [Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart) (we may choose another Pod network add-on from [here](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) instead) to finish setting up our control plane node:
 
 ```sh
-$ kubectl create -f /vagrant/tigera-operator.yaml
+$ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
 $ kubectl create -f /vagrant/custom-resources.yaml
 ```
 

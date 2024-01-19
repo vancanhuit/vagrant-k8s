@@ -24,4 +24,3 @@ kind: APIServer
 metadata:
   name: default
 spec: {}
-
