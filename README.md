@@ -1,6 +1,6 @@
 # Creating a multi-node Kubernetes cluster on local machine
 
-**Tools**: Install latest version of [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on your machine. Make sure that your machine has enough RAM to run multiple VMs.
+Install latest version of [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on your machine. Make sure that your machine has enough RAM to run multiple VMs.
 
 ## Provisioning VMs with all necessary tools
 ```sh
