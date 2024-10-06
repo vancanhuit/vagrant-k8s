@@ -33,5 +33,4 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", name: "install-containerd", path: "scripts/install-containerd.sh", privileged: true
   config.vm.provision "shell", name: "install-kubeadm", path: "scripts/install-kubeadm.sh", privileged: true
   config.vm.provision "shell", name: "update-kubelet-config", path: "scripts/update-kubelet-config.sh", args: ["eth1"], privileged: true
-  config.vm.provision "shell", name: "misc", path: "scripts/misc.sh", privileged: false
 end

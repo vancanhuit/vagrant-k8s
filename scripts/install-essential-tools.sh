@@ -13,8 +13,8 @@ apt-get --quiet --yes \
             --option "Dpkg::Options::=--force-confold" \
             dist-upgrade
 apt-get --quiet --yes install git \
-                            vim curl ufw \
-                            wget htop tmux jq net-tools resolvconf socat
+                            curl ufw \
+                            wget htop jq net-tools resolvconf socat
 
 timedatectl set-timezone 'Asia/Ho_Chi_Minh'
 timedatectl set-ntp true
