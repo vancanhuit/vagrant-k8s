@@ -11,7 +11,7 @@ $ vagrant reload
 ```
 
 ## Initializing control plane node
-After all VMs are provisioned, follow this [guide](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) to setup our cluster:
+After all VMs are provisioned, follow this [guide](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) to setup a cluster:
 
 ```sh
 $ vagrant ssh control-plane
@@ -36,7 +36,7 @@ $ vagrant ssh node-01
 ```sh
 $ sudo kubeadm join 192.168.56.10:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-The join command can be found after running the `kubeadm init` command but token and hash values can be found by running the following commands on the control plane node:
+The join command can be found after running the `kubeadm init` command but the token and hash values can be found by running the following commands on the control plane node:
 
 ```sh
 $ kubeadm token list
@@ -47,7 +47,7 @@ $ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | \
 
 Do the same procedure on `node-02`.
 
-Now we should have a 3-node Kubernetes cluster running on our local machine:
+Now we should have a 3-node Kubernetes cluster running on local machine:
 
 ```sh
 $ vagrant ssh control-plane
@@ -122,6 +122,8 @@ tigera-operator    replicaset.apps/tigera-operator-576646c5b6           1       
 
 ## Ingress NGINX controller
 
+[https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#via-the-host-network](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#via-the-host-network).
+
 ```sh
 $ vagrant ssh control-plane
 ```
@@ -177,3 +179,4 @@ example-ingress   <none>   *       192.168.56.11   80      67s
 $ curl -s http://192.168.56.11/foo/hostname | xargs
 $ curl -s http://192.168.56.11/bar/hostname | xargs
 ```
+
