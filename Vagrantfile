@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "control-plane" do |node|
     node.vm.hostname = "control-plane"
     node.vm.network "private_network", ip: "192.168.56.10"
+    node.vm.provision "shell", name: "configure-firewall", path: "scripts/configure-control-plane-firewall.sh", privileged: true
   end
 
   (1..2).each do |i|
@@ -19,13 +20,18 @@ Vagrant.configure("2") do |config|
     config.vm.define "#{hostname}" do |node|
       node.vm.hostname = "#{hostname}"
       node.vm.network "private_network", ip: "192.168.56.#{10 + i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.cpus = 1
+      end
+      node.vm.provision "shell", name: "configure-firewall", path: "scripts/configure-worker-node-firewall.sh", privileged: true
     end
   end
 
-  config.vm.provision "shell", name: "disable-swap", path: "disable-swap.sh", privileged: false
-  config.vm.provision "shell", name: "install-essential-tools", path: "install-essential-tools.sh", privileged: false
-  config.vm.provision "shell", name: "allow-bridge-nf-traffic", path: "allow-bridge-nf-traffic.sh", privileged: false
-  config.vm.provision "shell", name: "install-containerd", path: "install-containerd.sh", privileged: false
-  config.vm.provision "shell", name: "install-kubeadm", path: "install-kubeadm.sh", privileged: false
-  config.vm.provision "shell", name: "update-kubelet-config", path: "update-kubelet-config.sh", args: ["eth1"], privileged: false
+  config.vm.provision "shell", name: "disable-swap", path: "scripts/disable-swap.sh", privileged: true
+  config.vm.provision "shell", name: "install-essential-tools", path: "scripts/install-essential-tools.sh", privileged: true
+  config.vm.provision "shell", name: "allow-bridge-nf-traffic", path: "scripts/allow-bridge-nf-traffic.sh", privileged: true
+  config.vm.provision "shell", name: "install-containerd", path: "scripts/install-containerd.sh", privileged: true
+  config.vm.provision "shell", name: "install-kubeadm", path: "scripts/install-kubeadm.sh", privileged: true
+  config.vm.provision "shell", name: "update-kubelet-config", path: "scripts/update-kubelet-config.sh", args: ["eth1"], privileged: true
+  config.vm.provision "shell", name: "misc", path: "scripts/misc.sh", privileged: false
 end

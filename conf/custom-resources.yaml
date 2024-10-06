@@ -7,9 +7,9 @@ metadata:
 spec:
   # Configures Calico networking.
   calicoNetwork:
-    # Note: The ipPools section cannot be modified post-install.
     ipPools:
-    - blockSize: 26
+    - name: default-ipv4-ippool
+      blockSize: 26
       cidr: 10.244.0.0/16
       encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
@@ -24,3 +24,4 @@ kind: APIServer
 metadata:
   name: default
 spec: {}
+

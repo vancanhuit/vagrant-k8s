@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo sed -i '/swap/s/^/# /' /etc/fstab
+sed -i '/swap/s/^/# /' /etc/fstab
