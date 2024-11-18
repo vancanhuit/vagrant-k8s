@@ -6,7 +6,8 @@ Install latest version of [VirtualBox](https://www.virtualbox.org/) and [Vagrant
 ```sh
 $ git clone https://github.com/vancanhuit/vagrant-k8s.git
 $ cd vagrant-k8s
-$ vagrant up
+   $ BUILD_MODE=BRIDGE vagrant up  # for a BRIDGED network (same network as the host)
+   $ BUILD_MODE=NAT vagrant up # for NAT network (isolated from the host)
 $ vagrant reload
 ```
 
